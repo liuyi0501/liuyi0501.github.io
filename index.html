@@ -115,6 +115,12 @@
     </body>
     
     <script>
+	if(window.pathname == '/'){
+		$('body').append('<h1>WBPlayer</h1>');
+		$('body').append('<p>这是一个静态视频播放器的实例</p>');
+		return;
+	}
+	    
         //换剧集函数，可能用不到但也先备上
         //<button onclick="changeVideo()"></button>
         function changeVideo(id){
