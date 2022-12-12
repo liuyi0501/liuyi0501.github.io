@@ -1,0 +1,24 @@
+    {
+        "tracks":[
+            {
+				"kind":"subtitles",
+				"src":"./static/subtitle/Chainsaw_Man/08/chs.vtt",
+				"label":"简体中文",
+				"srclang":"zh-cn",
+				"default": true
+            },
+            {
+				"kind":"subtitles",
+				"src":"./static/subtitle/Chainsaw_Man/08/cht.vtt",
+				"label":"繁體中文",
+				"srclang":"zh-tw"
+            },
+            {
+    			"kind":"subtitles",
+				"src":"./static/subtitle/Chainsaw_Man/08/en.vtt",
+				"label":"English",
+				"srclang":"en"
+            }
+        ]
+
+    }

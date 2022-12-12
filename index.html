@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title>Danmaku Example</title>
+        <meta name='referrer' content='no-referrer'>
+        <meta name=description content="Danmaku Player">
+        <link rel="stylesheet" href="./static/css/mui-player.min.css">
+        <link rel="stylesheet" href="./static/css/muiplayer.css">
+        <script src="./static/js/mui-player-desktop-plugin.min.js"></script>
+        <script src="./static/js/mui-player-mobile-plugin.min.js"></script>
+        <script src="./static/js/md5.js"></script>
+        <script src="./static/js/flv.min.js"></script>
+        <script src="./static/js/hls.min.js"></script>
+        <script src="./static/js/jquery.min.js"></script>
+        <script src="./static/js/axios.min.js"></script>
+        <script src="./static/js/config.js"></script>
+        <script src="./static/js/mui-player.min.js"></script>
+
+        <link rel="stylesheet" href="./static/css/CommentCoreLibrary.min.css">
+        <script src="./static/js/CommentCoreLibrary.min.js"></script>
+        <script src="./static/js/comments.js"></script>
+        
+    </head>
+    
+	<body>
+        <div id="mui-player" class='abp' style="background-color: black;">
+            <template slot="nextMedia">
+        <svg t="1584686776454" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1682" width="22" height="22"><path d="M783.14692466 563.21664097L240.85307534 879.55472126c-39.1656664 24.10194914-90.38230866-6.02548665-90.38230865-51.21664226v-632.676158c0-45.19115433 51.21664097-75.31859011 90.38230865-51.21664226l542.29384932 316.33808029c39.1656664 21.08920518 39.1656664 81.34407804 0 102.43328194z" p-id="1683" fill="#ffffff"></path><path d="M873.52923331 734.94302767c0 42.17841036-39.1656664 78.33133408-90.38230865 78.33133407s-90.38230866-36.15292371-90.38230735-78.33133407V289.05697233c0-42.17841036 39.1656664-78.33133408 90.38230735-78.33133407s90.38230866 36.15292371 90.38230865 78.33133407v445.88605534z" p-id="1684" fill="#ffffff"></path></svg>
+    </template>
+        <template slot="changeDanmaku">
+        <svg width="25" height="25" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.00001 27.3432L26.9203 9.42291L32.5772 15.0798L14.6569 33.0001H9.00001L9.00001 27.3432ZM25.5061 5.18027C26.2871 4.39922 27.5535 4.39922 28.3345 5.18027L36.8198 13.6655C37.6009 14.4466 37.6009 15.7129 36.8198 16.494L16.6066 36.7072C16.4191 36.8947 16.1647 37.0001 15.8995 37.0001H6.00001C5.44772 37.0001 5.00001 36.5524 5.00001 36.0001L5.00001 26.1006C5.00001 25.8354 5.10536 25.581 5.2929 25.3935L25.5061 5.18027ZM6 40.0001C5.44772 40.0001 5 40.4478 5 41.0001V43.0001C5 43.5523 5.44772 44.0001 6 44.0001H42C42.5523 44.0001 43 43.5523 43 43.0001V41.0001C43 40.4478 42.5523 40.0001 42 40.0001H6Z" fill="#FFFFFF"></path></svg></template>
+        <template slot="changeVideoButton">
+        <svg width="25" height="25" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 39V9H39V39H9ZM5 7C5 5.89543 5.89543 5 7 5H41C42.1046 5 43 5.89543 43 7V41C43 42.1046 42.1046 43 41 43H7C5.89543 43 5 42.1046 5 41V7ZM21 20.4163L27.0514 23.9999L21 27.5835V20.4163ZM31.9955 22.279C33.3034 23.0535 33.3034 24.9462 31.9955 25.7207L20.0191 32.8131C18.6859 33.6026 17 32.6417 17 31.0922V16.9075C17 15.358 18.6859 14.3971 20.0191 15.1866L31.9955 22.279Z" fill="#FFFFFF"></path></svg></template>
+        <template slot="changeVideo">
+            <style>
+                .parent{ 
+                    600px; 
+                    margin: 100px auto 0; 
+                    background: red;
+                    position: relative;
+                    
+                } 
+                .left{
+                    100px;
+                    height: 100%;
+                    position: absolute;
+                    background: green;
+                    left: 0;
+                    top:0;
+                } 
+                .right {
+                    margin-left: 100px;
+                    text-align: center;
+                    font-size: 36px; 
+                    background: yellow;
+                    }
+                .changeVideo {
+                    animation: name duration timing-function delay iteration-count direction;
+                    width: 200px;
+                    height: 46px;
+                    line-height: 46px;
+                    background: #2e82ff !important;
+                    color: #ffffff;
+                    font-size: 18px;
+                    border-radius: 27px;
+                    animation: zoomIn 1.5s infinite;
+                    text-align: center;
+                }
+                @keyframes zoomIn {
+                    50% {
+                     transform: scale(1.2);
+                    }
+                    100% {
+                     transform: scale(1);
+                    }
+                }
+            </style>
+            <br/>
+            <br/>
+            <div id="changeVideo" style="color: white;display: flex;flex-direction: column;align-items: center;justify-content: center;height: 100%;font-size: 16px;width: 100%;">
+                
+            </div>
+            <br/>
+            <br/>
+        </template>
+        <template slot="Danmaku">
+            <div style="color: white;display: flex;flex-direction: column;align-items: center;justify-content: center;height: 100%;font-size: 16px;">
+                <script type="text/javascript">
+                    function changeDanmaku(){
+                        if($("#my-comment-stage").css("display") == "block"){
+                        $("#my-comment-stage").css("display", "none");
+                        $("#danmuButton").text("开启弹幕");
+                        console.log("关闭弹幕");
+                        $danmaku.cmClear();
+                    } else {
+                        $("#my-comment-stage").css("display", "block");
+                        $("#danmuButton").text("关闭弹幕");
+                        console.log("显示弹幕");
+                        $danmaku.cmClear();
+                    }
+                    }
+                </script>
+                <p id="danmuButton" onclick="changeDanmaku()">关闭弹幕</p>
+                <hr/>
+                <input id="writeDanmaku" type="text" placeholder="发个弹幕见证当下"/>
+                <o id="sendDanmaku" onclick="$danmaku.cmSend()">发送弹幕！</o>
+            </div>
+        </template>
+        
+        <!-- NMLGCB 千万别把template放到div.my-comment-stage 下面，不然就给挡住了。查都查不胡来 -->
+            <div id='my-comment-stage' class='container' style="z-index: 1 !important;height: 325px;width: 100%; display: block;"></div>
+        </div><br/>
+    </body>
+    
+    <script>
+        //换剧集函数，可能用不到但也先备上
+        //<button onclick="changeVideo()"></button>
+        function changeVideo(id){
+            if(!window.videoJson.video[id]){
+                mp.showToast("不存在此剧集");
+                return;
+            }
+            if(window.videoJson.type == "m3u8"){
+                //m3u8需要重新载入
+                mp.destroy();
+                window.playerConfig.src = window.videoJson.video[id].url;
+                $player.initCreateMuiplayer();
+            }else {
+                    mp.reloadUrl(window.videoJson.video[id].url);
+            }
+            $danmaku.cmClear();
+            var api = "https://danmaku.wobbay.xyz/dmku/?ac=dm&id=";
+            axios.get(api+hex_md5(window.videoJson.video[id].url)).then(function(response){
+                    var res = response.data;
+                    console.log(res);
+                    var danmakuList = [];
+                    let danmaku = res.danmuku;
+                    for ( i = 0; i < danmaku.length; i++){
+                        danmakuList.push({
+                            "mode":danmaku[i][1]=="right"?1:5,
+                            "text":danmaku[i][4],
+                            "stime":danmaku[i][0],
+                            "size":25,
+                            "dur":7000,
+                            "color":danmaku[i][2]
+                                })
+                            }
+                            window.danmakuList = danmakuList;
+                            $danmaku.initCreateDanmaku();
+                        })
+                    
+                    $("#title-name").text(response.title+" - "+response.video[id].title);
+                    window.videoJson.currentVideo = id;
+        }
+        
+        var $danmaku = {
+            CM:null,
+            /**
+             * 初始化创建 CCL 实例
+             */
+            initCreateDanmaku:function() {
+                var danmakuContainer = document.getElementById('my-comment-stage');
+                this.CM = new CommentManager(danmakuContainer);
+                window.CM = this.CM // 开放 CM 对象到全局这样就可以在 console 终端里操控
+                this.CM.init();
+                this.loadDanmakuData();
+            },
+            /**
+             * 挂载 CCL 弹幕数据列表
+             */
+            loadDanmakuData:function() {
+                this.CM.load(window.danmakuList);
+                
+                console.log(window.CM)
+            },
+            /**
+             * 视频播放器容器大小变化，控制弹幕窗口同步拉伸
+             */
+            autoscaleComment:function() {
+                var stage = this.CM.stage;
+                var mpContainer = document.getElementById("mui-player");
+
+                if(this._timeout_1) { clearTimeout(this._timeout_1) };
+                this._timeout_1 = setTimeout(function() {
+                    stage.style.height = (mpContainer.clientHeight - 80) + 'px';
+                    this.CM.init(); // 重新初始化弹幕管理器并绑定舞台大小
+                },500)
+            },
+            cmSend:function() {
+                let sendText = document.getElementById("writeDanmaku").value;
+                if(!sendText)return;
+                this.CM.send({
+                    mode:1,
+                    text:sendText,
+                    size:25,
+                });
+                $.post("https://danmaku.wobbay.xyz/dmku/?ac=dm",JSON.stringify({
+                    "player":hex_md5(getQueryVariable( window.location.href , 'url' )),
+                    "author":"DIYgod",
+                    "time":mp.video().currentTime,
+                    "text":sendText,
+                    "color":"rgb(255, 255, 255)",
+                    "type":"right",
+                    "size":"27.5px"
+                }))
+            },
+            cmClear:function() {
+                this.CM.clear();
+            },
+            cmInsert:function() {
+                this.CM.insert({
+                    mode:1,
+                    text:'Insert Danmaku',
+                    stime:10000,
+                    size:25,
+                    color:0x0000FF
+                })
+            },
+        }
+
+        var $player = {
+            mp:null,
+            _disableTime:true,
+            playTime:0,
+            /**
+             * 初始化创建 MuiPlayer 实例
+             */
+            initCreateMuiplayer:function() {
+                var config = window.playerConfig;
+                config['autoplay'] = true;
+                this.mp = new MuiPlayer(config);
+                window.mp = this.mp;
+                this.addPlayListener();
+                
+            },
+            /**
+             * 添加播放事件监听
+             */
+            addPlayListener:function() {
+                let _this = this;
+                _this.mp.on('ready',function() {
+                    //_this.mp.showToast('手机端请手动点击播放', 6000);
+                });
+                _this.mp.on('seek-progress',function() {
+                    _this.mp.showToast('加载中...');
+                });
+                _this.mp.on('ready',function(e) {
+                    let lastShowTime = localStorage.getItem($('video').attr('src'));
+                    if( lastShowTime ){
+                        mp.video().currentTime = lastShowTime;
+                        _this.mp.showToast({ message:'快进至上次播放时间', duration:3000, style:{} });
+                    }
+                    if(window.videoJson)for ( o = 0; o < window.videoJson.video.length; o++ ){
+                        $("div#changeVideo").append('<span  onclick="changeVideo('+o+')">'+window.videoJson.video[o].title+'</span>');
+                    }
+                    
+                    _this.mp.video().addEventListener('play',function() {
+                        _this.playTime = _this.mp.video().currentTime * 1000;
+                        _this._disableTime = true;
+                        $danmaku.CM.start();
+                        _this.triggerTime();
+                    })
+
+                    _this.mp.video().addEventListener('pause',function() {
+                        _this._disableTime = false;
+                        $danmaku.CM.stop();
+                    })
+
+                    _this.mp.video().addEventListener('seeked',function() {
+                        $danmaku.cmClear();
+                        _this.playTime = _this.mp.video().currentTime * 1000;
+                    })
+
+                    _this.mp.on('fullscreen-change',function(data) {
+                        $danmaku.autoscaleComment();
+                    })
+                });
+            },
+            // 触发通报 CCL 播放时间
+            triggerTime:function() {
+                let _this = this;
+                if(!_this._disableTime) { return };
+
+                setTimeout(function() {
+                    _this.playTime += 100; // 每100毫秒追加时间轴，生成模拟播放
+
+
+                    $danmaku.CM.time(_this.mp.video().currentTime * 1000);
+                    console.log('Polling => ' + (_this.mp.video().currentTime) + 's');
+                    localStorage.setItem($('video').attr('src'), _this.mp.video().currentTime)
+                    //下面的是官方演示，会因为加载导致弹幕时间和播放时间不一样
+                    //console.log('Polling => ' + (_this.playTime / 1000) + 's');
+                    //$danmaku.CM.time(_this.playTime); // 通报播放时间
+                    _this.triggerTime(); // 轮询调用
+                },100);
+            }
+        }
+        
+        if(getQueryVariable( window.location.href , 'data' )){
+            //获取数据集
+    axios.get(getQueryVariable( window.location.href , 'data' )).then(function(res){
+        console.log(res);
+        response =res.data;
+        //全局化视频数据
+        window.videoJson = response;
+        
+            if(response.type == "m3u8"){
+                window.playerConfig.parse= {
+                        type:'hls',
+                        loader:Hls,
+                        config: {
+                            debug:false,
+                        },
+                    };
+                }
+                
+            if(response.type == "flv"){
+                    window.playerConfig.parse= {
+                        type:'flv',
+                        loader:flvjs,
+                        config: {
+                            cors:true,
+                        },
+                    };
+                }
+        
+        //设置更换剧集的按钮和右侧弹出框
+        window.playerConfig.custom.footerControls.push({
+                slot:'changeVideoButton',
+                position:'right',
+                tooltip:'更换剧集',
+                oftenShow:true,
+                click:function(e) {
+                    mp.showRightSidebar("changeVideo");
+                },
+            })
+        window.playerConfig.custom.rightSidebar.push({
+            slot:'changeVideo', 
+            width:'200px'
+        })
+        //设置弹幕 | 这部分是专门管视频剧集的弹幕的，下面也有套着一个，在config.js 里还有一个。所以如果换接口，记得都换了
+        var api = "https://danmaku.wobbay.xyz/dmku/?ac=dm&id=";
+        axios.get(api+hex_md5(response.video[0].url)).then(function(response){
+                var res = response.data;
+                console.log(res);
+                var danmakuList = [];
+                let danmaku = res.danmuku;
+                for ( i = 0; i < danmaku.length; i++){
+                    danmakuList.push({
+                        "mode":danmaku[i][1]=="right"?1:5,
+                        "text":danmaku[i][4],
+                        "stime":danmaku[i][0],
+                        "size":25,
+                        "dur":7000,
+                        "color":danmaku[i][2]
+                    })
+                }
+                window.danmakuList = danmakuList;
+                $danmaku.initCreateDanmaku();
+            })
+        
+        window.playerConfig.custom.footerControls.push({
+                slot:'nextMedia',
+                position:'left',
+                tooltip:'下一集',
+                oftenShow:true,
+                click:function(e) {
+                    if(window.videoJson.video.length-1 <= window.videoJson.currentVideo){
+                        mp.showToast("已经是最后一集");
+                        return;
+                    }
+                    $danmaku.cmClear();
+                    if(window.videoJson.type == "m3u8"){
+                        //m3u8需要重新载入
+                        mp.destroy();
+                        window.playerConfig.src = window.videoJson.video[ window.videoJson.currentVideo+1 ].url;
+                        $player.initCreateMuiplayer();
+                    }else {
+                            mp.reloadUrl(window.videoJson.video[ window.videoJson.currentVideo+1 ].url);
+                        }
+                    
+                    var api = "https://danmaku.wobbay.xyz/dmku/?ac=dm&id=";
+                    axios.get(api+hex_md5(window.videoJson.video[ window.videoJson.currentVideo+1 ].url)).then(function(response){
+                            var res = response.data;
+                            console.log(res);
+                            var danmakuList = [];
+                            let danmaku = res.danmuku;
+                            for ( i = 0; i < danmaku.length; i++){
+                                danmakuList.push({
+                                    "mode":danmaku[i][1]=="right"?1:5,
+                                    "text":danmaku[i][4],
+                                    "stime":danmaku[i][0],
+                                    "size":25,
+                                    "dur":7000,
+                                    "color":danmaku[i][2]
+                                })
+                            }
+                            window.danmakuList = danmakuList;
+                            $danmaku.initCreateDanmaku();
+                        })
+                    
+                    $("#title-name").text(response.title+" - "+response.video[ window.videoJson.currentVideo+1 ].title);
+                    window.videoJson.currentVideo++;
+                },
+            })
+        //设置标题
+        window.playerConfig.title = response.title+" - "+response.video[0].title;
+        //设置视频播放地址
+        window.playerConfig.src = response.video[0].url;
+        //设置封面
+        window.playerConfig.poster = response.pic?res.pic:"";
+        window.videoJson.currentVideo = 0;
+        if(window.playerConfig.src.indexOf(".m3u8")>0){
+                window.playerConfig.parse= {
+                    type:'hls',
+                    loader:Hls,
+                    config: {
+                        debug:false,
+                    },
+                };
+            }
+            
+        if(window.playerConfig.src.indexOf(".flv")>0){
+                window.playerConfig.parse= {
+                    type:'flv',
+                    loader:flvjs,
+                    config: {
+                        cors:true,
+                    },
+                };
+            }
+            console.log(window.playerConfig);
+            $player.initCreateMuiplayer();
+    })
+        } else if(getQueryVariable( window.location.href , 'subtitle' )){
+            if(getQueryVariable( window.location.href , 'subtitle' ).indexOf(".json")>0){
+                axios.get(getQueryVariable( window.location.href , 'subtitle' )).then(function(response){
+                    window.playerConfig.subtitle = [];
+                    window.playerConfig.subtitle.tracks = (response.data.tracks);
+                    window.playerConfig.subtitle.styles = {
+                        color:'#FFFFFF',
+    			        background:'transparent',
+    			        textShadow:'0px 0px 1px #000000',
+                };
+                $player.initCreateMuiplayer();
+                })
+            } else {
+                window.playerConfig.subtitle = {
+                    tracks:[
+                        {
+                			kind:'subtitles',
+            				src:getQueryVariable( window.location.href , 'subtitle' ),
+            				label:'Default',
+            				default:true,
+                        }
+                    ],
+                    styles:{ // 字幕默认样式
+            			color:'#FFFFFF',
+            			background:'transparent',
+            			textShadow:'0px 0px 1px #000000',
+            		},
+                }
+                $player.initCreateMuiplayer();
+            }
+        } else {
+            console.log(window.playerConfig);
+            $player.initCreateMuiplayer();
+        }
+        
+        
+
+    </script>
+</html>

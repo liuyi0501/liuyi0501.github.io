@@ -1,0 +1,29 @@
+{
+    "title": "电锯人",
+    "pic": "https://www.wobbay.xyz/wp-content/uploads/2022/10/e9523f6f7c221729-721x1024.jpg",
+    "video": [{
+        "title":"第一集",
+        "url":"https://vod1.wobbay.xyz/normal/bangumi/Chainsaw_Man/01.mp4"
+    },{
+        "title":"第二集",
+        "url":"https://vod1.wobbay.xyz/normal/bangumi/Chainsaw_Man/encode.02.mp4"
+    },{
+        "title":"第三集",
+        "url":"https://vod1.wobbay.xyz/normal/bangumi/Chainsaw_Man/encode.03.mp4"
+    },{
+        "title":"第四集",
+        "url":"https://vod1.wobbay.xyz/normal/bangumi/Chainsaw_Man/encode.04.mp4"
+    },{
+        "title":"第五集",
+        "url":"https://vod1.wobbay.xyz/normal/bangumi/Chainsaw_Man/encode.05.mp4"
+    },{
+        "title":"第六集",
+        "url":"https://vod1.wobbay.xyz/normal/bangumi/Chainsaw_Man/encode.06.mp4"
+    },{
+        "title":"第七集",
+        "url":"https://vod1.wobbay.xyz/normal/bangumi/Chainsaw_Man/encode.07.mp4"
+    },{
+        "title":"第八集",
+        "url":"https://vod1.wobbay.xyz/normal/bangumi/Chainsaw_Man/08.webm"
+    }]
+}
